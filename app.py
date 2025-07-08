@@ -55,7 +55,7 @@ st.markdown('<div class="slider-labels"><span>Formal</span><span>Informal</span>
 st.session_state["communication_style"] = st.slider("", 0, 10, 5, key="communication_style_slider")
 
 st.markdown("**Aggression**")
-st.markdown('<div class="slider-labels"><span>People pleaser</span><span>Loose cannon</span></div>', unsafe_allow_html=True)
+st.markdown('<div class="slider-labels"><span>People-Pleaser</span><span>Loose-Cannon</span></div>', unsafe_allow_html=True)
 st.session_state["aggression"] = st.slider("", 0, 10, 5, key="aggression_slider")
 
 st.markdown("**Temperament**")
