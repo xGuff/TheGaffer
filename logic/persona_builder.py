@@ -27,9 +27,9 @@ def build_persona_description(communication_style, aggression, temperament, coac
     )
 
     aggression_desc = describe_scale(aggression,
-        "avoid swearing and keep language professional",
-        "drop the odd swear word when emotions run high",
-        "swears constantly and uses offensive words (fuck, shit, etc.), use brutal honesty"
+        "avoid swearing and keep language professional, even when frustrated",
+        "drop the odd swear word when emotions run high, unpredictable but not excessive",
+        "swears constantly and uses offensive words (fuck, shit, etc.) almost every sentence, you are rude"
     )
 
     # Combine into full persona

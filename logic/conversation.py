@@ -12,12 +12,12 @@ def generate_response(user_input, coach_description, scenario, history):
         "Reply in *one single message only*. No follow-ups, no lists, no new lines. "
         "You are The Gaffer. Stay in character."
     )
-
+    
     # Scenario-specific intro
     if scenario == "Blank canvas":
         system_message += "\nA new player has messaged you for a chat."
     else:
-        system_message += f"\nThe player is coming to you with this situation: '{scenario}'."
+        system_message += f"\n You've heard that one of your players wants to talk about this situation: {scenario}. Talk to them directly, don’t use names — just talk like you would in a WhatsApp chat."
 
     # Messages
     messages = [{"role": "system", "content": system_message}]
@@ -29,7 +29,7 @@ def generate_response(user_input, coach_description, scenario, history):
     else:
         messages.append({
             "role": "user",
-            "content": f"Send exactly one blunt, WhatsApp-style message to start the chat. Be casual but firm, e.g. 'What's this I'm hearing about {scenario.lower()}?'"
+            "content": f"Send exactly one blunt, WhatsApp-style message to start the chat. Be casual but firm, e.g. 'What's this I'm hearing about {scenario.lower()}? Use the style of your persona: {coach_description}'"
         })
 
     # Call LLM
