@@ -1,5 +1,6 @@
 from mistralai import Mistral
 import streamlit as st
+import re
 
 api_key = st.secrets["MISTRAL_API_KEY"]
 client = Mistral(api_key=api_key)
@@ -12,7 +13,7 @@ def generate_response(user_input, coach_description, scenario, history):
         "Reply in *one single message only*. No follow-ups, no lists, no new lines. "
         "You are The Gaffer. Stay in character."
     )
-    
+
     # Scenario-specific intro
     if scenario == "Blank canvas":
         system_message += "\nA new player has messaged you for a chat."
@@ -36,9 +37,17 @@ def generate_response(user_input, coach_description, scenario, history):
     response = client.chat.complete(
         model="mistral-small",
         messages=messages,
-        temperature=0.5,
+        temperature=0.7,
         top_p=0.9,
         max_tokens=120 
     )
 
-    return response.choices[0].message.content.strip().strip('"')
+    content = response.choices[0].message.content.strip()
+
+
+    return trim_incomplete_sentences(content)
+
+
+def trim_incomplete_sentences(text):
+    sentences = re.split(r'(?<=[.!?]) +', text)
+    return ' '.join(sentences[:-1]) if len(sentences) > 1 and not text.strip().endswith(('.', '!', '?')) else text

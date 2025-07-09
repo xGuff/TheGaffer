@@ -31,8 +31,8 @@ def build_persona_description(communication_style, aggression, temperament, coac
         "robotic and corporate, like you're writing press releases",
         "formal and stiff, but polite",
         "relaxed and conversational",
-        "casual and bantery, like one of the lads",
-        "completely unfiltered — full of slang, emojis, and inside jokes"
+        "casual and bantery, like one of the lads, use some abbreviations",
+        "completely unfiltered — full of slang, emojis, hashtags and abbreviations"
     ])
 
     aggression_desc = describe_scale(aggression, [
