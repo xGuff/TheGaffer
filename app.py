@@ -45,34 +45,38 @@ st.session_state["scenario"] = st.selectbox(
     accept_new_options=False
 )
 
-st.markdown("Customise The Gaffer's personality:")
+manager_mode = st.radio("Choose your manager type:", ["Custom Gaffer", "Preset Manager"])
 
-st.markdown("""
-<style>
-.slider-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    color: gray;
-}
-</style>
-""", unsafe_allow_html=True)
+if manager_mode == "Preset Manager":
+    preset_choice = st.selectbox("Pick a manager", ["Pep Guardiola", "Jürgen Klopp", "Alex Ferguson", "Jose Mourinho", "Mikel Arteta"])
+    st.session_state["preset_choice"] = preset_choice
+else:
+    st.markdown("""
+    <style>
+    .slider-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: gray;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-st.markdown("**Communication Style**")
-st.markdown('<div class="slider-labels"><span>Formal</span><span>Informal</span></div>', unsafe_allow_html=True)
-st.session_state["communication_style"] = st.slider("", 0, 10, 5, key="communication_style_slider")
+    st.markdown("**Communication Style**")
+    st.markdown('<div class="slider-labels"><span>Formal</span><span>Informal</span></div>', unsafe_allow_html=True)
+    st.session_state["communication_style"] = st.slider("", 0, 10, 5, key="communication_style_slider")
 
-st.markdown("**Aggression**")
-st.markdown('<div class="slider-labels"><span>People-Pleaser</span><span>Loose-Cannon</span></div>', unsafe_allow_html=True)
-st.session_state["aggression"] = st.slider("", 0, 10, 5, key="aggression_slider")
+    st.markdown("**Aggression**")
+    st.markdown('<div class="slider-labels"><span>People-Pleaser</span><span>Loose-Cannon</span></div>', unsafe_allow_html=True)
+    st.session_state["aggression"] = st.slider("", 0, 10, 5, key="aggression_slider")
 
-st.markdown("**Temperament**")
-st.markdown('<div class="slider-labels"><span>Calm</span><span>Hot-Headed</span></div>', unsafe_allow_html=True)
-st.session_state["temperament"] = st.slider("", 0, 10, 5, key="temperament_slider")
+    st.markdown("**Temperament**")
+    st.markdown('<div class="slider-labels"><span>Calm</span><span>Hot-Headed</span></div>', unsafe_allow_html=True)
+    st.session_state["temperament"] = st.slider("", 0, 10, 5, key="temperament_slider")
 
-st.markdown("**Coaching Style**")
-st.markdown('<div class="slider-labels"><span>Modern</span><span>Old-School</span></div>', unsafe_allow_html=True)
-st.session_state["coaching_style"] = st.slider("", 0, 10, 5, key="style_slider")
+    st.markdown("**Coaching Style**")
+    st.markdown('<div class="slider-labels"><span>Modern</span><span>Old-School</span></div>', unsafe_allow_html=True)
+    st.session_state["coaching_style"] = st.slider("", 0, 10, 5, key="style_slider")
 
 col1, col2, col3 = st.columns([1, 1, 1])  # Adjust column widths
 with col2:

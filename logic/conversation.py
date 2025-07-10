@@ -5,8 +5,18 @@ import re
 api_key = st.secrets["MISTRAL_API_KEY"]
 client = Mistral(api_key=api_key)
 
-def generate_response(user_input, coach_description, scenario, history):
-    # Build strict system message
+from logic.persona_builder import build_persona_description 
+
+def generate_response(user_input, communication_style, aggression, temperament, coaching_style, scenario, history, preset_choice=None):
+    print(preset_choice)
+    coach_description = build_persona_description(
+        communication_style,
+        aggression,
+        temperament,
+        coaching_style,
+        preset_choice=preset_choice
+    )
+
     system_message = (
         f"{coach_description}\n"
         "Your replies must be short, no more than one WhatsApp-style message. "
@@ -14,26 +24,22 @@ def generate_response(user_input, coach_description, scenario, history):
         "You are The Gaffer. Stay in character."
     )
 
-    # Scenario-specific intro
     if scenario == "Blank canvas":
         system_message += "\nA new player has messaged you for a chat."
     else:
-        system_message += f"\n You've heard that one of your players wants to talk about this situation: {scenario}. Talk to them directly, don’t use names — just talk like you would in a WhatsApp chat."
+        system_message += f"\nYou've heard that one of your players wants to talk about this situation: {scenario}. Talk to them directly, don’t use names — just talk like you would in a WhatsApp chat."
 
-    # Messages
     messages = [{"role": "system", "content": system_message}]
     messages.extend(history[-6:])
 
-    # Opening or response
     if user_input.strip():
         messages.append({"role": "user", "content": user_input})
     else:
         messages.append({
             "role": "user",
-            "content": f"Send exactly one blunt, WhatsApp-style message to start the chat. Be casual but firm, e.g. 'What's this I'm hearing about {scenario.lower()}? Use the style of your persona: {coach_description}'"
+            "content": f"Send exactly one blunt, WhatsApp-style message to start the chat. Be casual but firm, e.g. 'What's this I'm hearing about {scenario.lower()}?'"
         })
 
-    # Call LLM
     response = client.chat.complete(
         model="mistral-small",
         messages=messages,
@@ -43,9 +49,8 @@ def generate_response(user_input, coach_description, scenario, history):
     )
 
     content = response.choices[0].message.content.strip()
-
-
     return trim_incomplete_sentences(content)
+
 
 
 def trim_incomplete_sentences(text):

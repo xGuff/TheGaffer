@@ -95,6 +95,7 @@ coach_description = build_persona_description(
     st.session_state.aggression,
     st.session_state.temperament,
     st.session_state.coaching_style,
+    preset_choice=st.session_state.get("preset_choice")
 )
 scenario = st.session_state.scenario
 
@@ -107,15 +108,19 @@ if "messages" not in st.session_state:
         system_message = (
             f"{coach_description}\n"
             f"Start the WhatsApp chat by confronting the player about this situation: '{scenario}'. "
-            f"Be short, informal, and in-character as The Gaffer. Only send one message."
+            f"Be short, informal, and in-character. Only send one message."
         )
 
         # Generate assistant's opening message
         response = generate_response(
             user_input="",
-            coach_description=system_message,
-            scenario="",
-            history=[]
+            communication_style=st.session_state.get("communication_style"),
+            aggression=st.session_state.get("aggression"),
+            temperament=st.session_state.get("temperament"),
+            coaching_style=st.session_state.get("coaching_style"),
+            scenario=scenario,
+            history=[],
+            preset_choice=st.session_state.get("preset_choice")
         )
 
         st.session_state["messages"].append({"role": "assistant", "content": response})
@@ -130,26 +135,55 @@ def get_base64_image(image_path):
     img_b64 = base64.b64encode(buffered.getvalue()).decode()
     return f"data:image/png;base64,{img_b64}"
 
-avatar_base64 = get_base64_image("gaffer.png")
+
+# --- Manager avatar mapping ---
+MANAGER_AVATARS = {
+    "Pep Guardiola": "utils/pep.png",
+    "Jürgen Klopp": "utils/klopp.png",
+    "Alex Ferguson": "utils/fergie.png",
+    "Jose Mourinho": "utils/mourinho.png",
+    "Mikel Arteta": "utils/arteta.png",
+}
+preset_choice = st.session_state.get("preset_choice")
+avatar_path = MANAGER_AVATARS.get(preset_choice, "utils/gaffer.png")
+avatar_base64 = get_base64_image(avatar_path)
 
 # --- Sticky Header ---
 header = st.container()
 with header:
+    # Use preset_choice as header if available, else default to "The Gaffer"
+    header_name = st.session_state.get("preset_choice") or "The Gaffer"
     st.markdown(f"""
     <div class="fixed-header">
         <div class="header-inner">
             <img class="header-avatar" src="{avatar_base64}" alt="avatar" />
-            <div class="header-text">The Gaffer</div>
+            <div class="header-text">{header_name}</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+# --- Sticky Header ---
+# header = st.container()
+# with header:
+#     st.markdown(f"""
+#     <div class="fixed-header">
+#         <div class="header-inner">
+#             <img class="header-avatar" src="{avatar_base64}" alt="avatar" />
+#             <div>
+#                 <div class="header-text">The Gaffer</div>
+#                 <div style="font-size: 0.8rem; color: gray; max-width: 90vw;">{coach_description}</div>
+#             </div>
+#         </div>
+#     </div>
+#     """, unsafe_allow_html=True)
+
 
 # --- Display Chat History ---
 for msg in st.session_state.messages:
     role = msg["role"]
     role_class = "user" if role == "user" else "assistant"
     bubble_class = "user-bubble" if role == "user" else "assistant-bubble"
-    avatar = None if role == "user" else "gaffer.png"
+    avatar = None if role == "user" else avatar_path
 
     with st.chat_message(role, avatar=avatar):
         st.markdown(
@@ -176,8 +210,17 @@ if prompt := st.chat_input("Type a message"):
         )
 
     # Generate and display assistant response
-    with st.chat_message("assistant", avatar="gaffer.png"):
-        response = generate_response(prompt, coach_description, scenario, st.session_state.messages)
+    with st.chat_message("assistant", avatar=avatar_path):
+        response = generate_response(
+            user_input=prompt,
+            communication_style=st.session_state.get("communication_style"),
+            aggression=st.session_state.get("aggression"),
+            temperament=st.session_state.get("temperament"),
+            coaching_style=st.session_state.get("coaching_style"),
+            scenario=scenario,
+            history=st.session_state.messages,
+            preset_choice=st.session_state.get("preset_choice")
+        )
         st.markdown(
             f'''
             <div class="chat-row assistant">
