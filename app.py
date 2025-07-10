@@ -21,8 +21,16 @@ st.markdown("""
     }
     </style>
 """, unsafe_allow_html=True)
+
 st.title("TheGaffer")
-st.markdown("An immersive rehearsal, brought to you by [xGuff.substack.com](https://xguff.substack.com/).")
+
+st.markdown("""
+<span style="color: black;">
+Brought to you by <a href="https://xguff.substack.com/" style="color: orange; text-decoration: underline;">xGuff.substack.com</a>.
+</span>
+""", unsafe_allow_html=True)
+st.markdown("<br>", unsafe_allow_html=True)
+
 
 st.session_state["scenario"] = st.selectbox(
     "Pick a scenario to rehearse:",
@@ -37,7 +45,7 @@ st.session_state["scenario"] = st.selectbox(
     accept_new_options=False
 )
 
-st.markdown("_Gaffer behaviour..._")
+st.markdown("Customise The Gaffer's personality:")
 
 st.markdown("""
 <style>
