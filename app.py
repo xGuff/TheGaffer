@@ -48,7 +48,7 @@ st.session_state["scenario"] = st.selectbox(
 manager_mode = st.radio("Choose your manager type:", ["Custom Gaffer", "Preset Manager"])
 
 if manager_mode == "Preset Manager":
-    preset_choice = st.selectbox("Pick a manager", ["Pep Guardiola", "Jürgen Klopp", "Alex Ferguson", "Jose Mourinho", "Mikel Arteta"])
+    preset_choice = st.selectbox("Pick a manager:", ["Perp Gondiola", "Jargon Klapp", "Sir Alistair Fergleson", "Joesay Moreenyo", "Miguel Artutu"])
     st.session_state["preset_choice"] = preset_choice
 else:
     st.markdown("""

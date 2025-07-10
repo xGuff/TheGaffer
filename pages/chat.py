@@ -138,11 +138,11 @@ def get_base64_image(image_path):
 
 # --- Manager avatar mapping ---
 MANAGER_AVATARS = {
-    "Pep Guardiola": "utils/pep.png",
-    "Jürgen Klopp": "utils/klopp.png",
-    "Alex Ferguson": "utils/fergie.png",
-    "Jose Mourinho": "utils/mourinho.png",
-    "Mikel Arteta": "utils/arteta.png",
+    "Perp Gondiola": "utils/pep.png",
+    "Jargon Klapp": "utils/klopp.png",
+    "Sir Alistair Fergleson": "utils/fergie.png",
+    "Joesay Moreenyo": "utils/mourinho.png",
+    "Miguel Artutu": "utils/arteta.png",
 }
 preset_choice = st.session_state.get("preset_choice")
 avatar_path = MANAGER_AVATARS.get(preset_choice, "utils/gaffer.png")
