@@ -6,7 +6,7 @@ from logic.persona_builder import build_persona_description
 from logic.conversation import generate_response
 
 # --- Streamlit Config ---
-st.set_page_config(page_title="Chat", page_icon="📱")
+st.set_page_config(page_title="The Gaffer - Chat", page_icon="👨🏻‍💼")
 
 # --- WhatsApp-style Bubble CSS ---
 st.markdown("""
