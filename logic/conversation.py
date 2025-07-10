@@ -8,7 +8,7 @@ client = Mistral(api_key=api_key)
 from logic.persona_builder import build_persona_description 
 
 def generate_response(user_input, communication_style, aggression, temperament, coaching_style, scenario, history, preset_choice=None):
-    print(preset_choice)
+    
     coach_description = build_persona_description(
         communication_style,
         aggression,
@@ -43,7 +43,7 @@ def generate_response(user_input, communication_style, aggression, temperament, 
     response = client.chat.complete(
         model="mistral-small",
         messages=messages,
-        temperature=0.7,
+        temperature=0.9,
         top_p=0.9,
         max_tokens=120 
     )
