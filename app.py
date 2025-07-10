@@ -80,6 +80,18 @@ else:
 
 col1, col2, col3 = st.columns([1, 1, 1])  # Adjust column widths
 with col2:
-    if st.button("Enter Conversation", type='primary',use_container_width=True):
+    if st.button("Enter Conversation", type='primary', use_container_width=True):
+        # Clear previous chat state before starting new conversation
+        for key in ["messages"]:
+            if key in st.session_state:
+                del st.session_state[key]
+
+        # Make sure the preset is stored if chosen
+        if manager_mode == "Preset Manager":
+            st.session_state["preset_choice"] = preset_choice
+        else:
+            st.session_state["preset_choice"] = None
+
         st.session_state["ready"] = True
         st.switch_page("pages/chat.py")
+
