@@ -67,15 +67,15 @@ else:
     st.session_state["communication_style"] = st.slider("", 0, 10, 5, key="communication_style_slider")
 
     st.markdown("**Aggression**")
-    st.markdown('<div class="slider-labels"><span>People-Pleaser</span><span>Loose-Cannon</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="slider-labels"><span>Zen-Like</span><span>Hairdryer-Treatment</span></div>', unsafe_allow_html=True)
     st.session_state["aggression"] = st.slider("", 0, 10, 5, key="aggression_slider")
 
     st.markdown("**Temperament**")
-    st.markdown('<div class="slider-labels"><span>Calm</span><span>Hot-Headed</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="slider-labels"><span>Unflappable</span><span>Hot-Headed</span></div>', unsafe_allow_html=True)
     st.session_state["temperament"] = st.slider("", 0, 10, 5, key="temperament_slider")
 
     st.markdown("**Coaching Style**")
-    st.markdown('<div class="slider-labels"><span>Modern</span><span>Old-School</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="slider-labels"><span>Modern-Philosophies</span><span>Route-One</span></div>', unsafe_allow_html=True)
     st.session_state["coaching_style"] = st.slider("", 0, 10, 5, key="style_slider")
 
 col1, col2, col3 = st.columns([1, 1, 1])  # Adjust column widths

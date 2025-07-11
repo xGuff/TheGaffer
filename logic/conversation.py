@@ -41,10 +41,9 @@ def generate_response(user_input, communication_style, aggression, temperament, 
         })
 
     response = client.chat.complete(
-        model="mistral-small",
+        model="mistral-medium",
         messages=messages,
         temperature=0.9,
-        top_p=0.9,
         max_tokens=120 
     )
 
